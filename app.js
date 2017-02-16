@@ -33,18 +33,18 @@ app.post('/', function (req, res) {
 
   let number = [0, 0, 0];
   let homerun = [4, 5, 6];
-  let atoi = new map();
+  // let atoi = new map();
 
-  atoi.set('zero', 0);
-  atoi.set('one', 1);
-  atoi.set('two', 2);
-  atoi.set('three', 3);
-  atoi.set('four', 4);
-  atoi.set('five', 5);
-  atoi.set('six', 6);
-  atoi.set('seven', 7);
-  atoi.set('eight', 8);
-  atoi.set('nine', 9);
+  // // atoi.set('zero', 0);
+  // atoi.set('one', 1);
+  // atoi.set('two', 2);
+  // atoi.set('three', 3);
+  // atoi.set('four', 4);
+  // atoi.set('five', 5);
+  // atoi.set('six', 6);
+  // atoi.set('seven', 7);
+  // atoi.set('eight', 8);
+  // atoi.set('nine', 9);
   
 
   // Fulfill action business logic
@@ -54,9 +54,9 @@ app.post('/', function (req, res) {
   }
 
   function numberIntent (assistant) {
-    for (var i=0; i<3; i++) {
-      var temp = assistant.getArgument(NUMBER_ARGUMENT);
-      number[i] = atoi.getArgument(temp);
+    // for (var i=0; i<3; i++) {
+    //   // var temp = assistant.getArgument(NUMBER_ARGUMENT);
+    //   // number[i] = atoi.getArgument(temp);
     }
 
     assistant.tell('You said' + number[0] + number[1] + number[2]);
