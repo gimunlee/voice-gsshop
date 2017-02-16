@@ -50,7 +50,7 @@ app.post('/', function (req, res) {
   // Fulfill action business logic
   function welcomeIntent (assistant) {
     // Complete your fulfillment logic and send a response
-    assistant.tell('Welcome. Let\'s play number baseball game. Tell me three numbers you guessed.');
+    assistant.ask('Welcome. Let\'s play number baseball game. Tell me three numbers you guessed.');
   }
 
   function numberIntent (assistant) {
@@ -58,7 +58,7 @@ app.post('/', function (req, res) {
       // var temp = assistant.getArgument(NUMBER_ARGUMENT);
       // number[i] = atoi.getArgument(temp);
 
-    assistant.tell('You said' + number[0] + number[1] + number[2]);
+    assistant.ask('You said' + number[0] + number[1] + number[2]);
 
       var strike = 0;
       var ball = 0;
