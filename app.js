@@ -44,6 +44,7 @@ app.post('/', function (req, res) {
     for (var i=0; i<3; i++) {
       number[i] = assistant.getArgument(NUMBER_ARGUMENT);
     }
+    
   }
 
   let actionMap = new Map();
