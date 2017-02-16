@@ -55,9 +55,8 @@ app.post('/', function (req, res) {
 
   function numberIntent (assistant) {
     // for (var i=0; i<3; i++) {
-    //   // var temp = assistant.getArgument(NUMBER_ARGUMENT);
-    //   // number[i] = atoi.getArgument(temp);
-    }
+      // var temp = assistant.getArgument(NUMBER_ARGUMENT);
+      // number[i] = atoi.getArgument(temp);
 
     assistant.tell('You said' + number[0] + number[1] + number[2]);
 
@@ -79,12 +78,13 @@ app.post('/', function (req, res) {
       
       ball -= strike;
 
-       if (strike == 3) {
-         assistant.tell('Congratulations. Home Run.');
-       } else if (strike == 0 && ball == 0) {
-         assistant.tell('I\'m sorry, it\'s  out.');
-          } else {
-         assistant.tell('Not bad.' + strike + 'strike, ' + ball + 'ball');
+      if (strike == 3) {
+        assistant.tell('Congratulations. Home Run.');
+      } else if (strike == 0 && ball == 0) {
+        assistant.tell('I\'m sorry, it\'s  out.');
+      } else {
+        assistant.tell('Not bad.' + strike + 'strike, ' + ball + 'ball');
+      }
        
 
   }
