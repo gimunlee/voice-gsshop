@@ -24,6 +24,7 @@ app.use(bodyParser.json({type: 'application/json'}));
 
 const WELCOME_INTENT = 'welcomeIntent';  // the action name from the API.AI intent
 const NUMBER_INTENT = 'numberIntent';  // the action name from the API.AI intent
+const DOG_INTENT = 'dogIntent';
 
 // [START YourAction]
 app.post('/', function (req, res) {
@@ -51,6 +52,11 @@ app.post('/', function (req, res) {
   function welcomeIntent (assistant) {
     // Complete your fulfillment logic and send a response
     assistant.ask('Welcome. Let\'s play number baseball game. Tell me three numbers you guessed.');
+  }
+
+  function dogIntent (assistant) {
+    console.log("dog intent");
+    assistant.ask('bow wow');
   }
 
   function numberIntent (assistant) {
@@ -94,6 +100,7 @@ app.post('/', function (req, res) {
   let actionMap = new Map();
   actionMap.set(WELCOME_INTENT, welcomeIntent);
   actionMap.set(NUMBER_INTENT, numberIntent);
+  actionMap.set(DOG_INTENT, dogIntent);
   assistant.handleRequest(actionMap);
 });
 // [END YourAction]
