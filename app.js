@@ -22,19 +22,34 @@ let bodyParser = require('body-parser');
 let app = express();
 app.use(bodyParser.json({type: 'application/json'}));
 
+const WELCOME_INTENT = 'input.welcome';  // the action name from the API.AI intent
+const NUMBER_INTENT = 'input.number';  // the action name from the API.AI intent
+
 // [START YourAction]
 app.post('/', function (req, res) {
   const assistant = new Assistant({request: req, response: res});
   console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
 
+  let number = [0, 0, 0];
+  let homerun = [4, 5, 6];
+
   // Fulfill action business logic
-  function responseHandler (assistant) {
+  function welcomeIntent (assistant) {
     // Complete your fulfillment logic and send a response
-    assistant.tell('Hello, World!');
+    assistant.tell('Welcome. Let\'s play number baseball game. Tell me three numbers you guessed.');
   }
 
-  assistant.handleRequest(responseHandler);
+  function numberIntent (assistant) {
+    for (var i=0; i<3; i++) {
+      number[i] = assistant.getArgument(NUMBER_ARGUMENT);
+    }
+  }
+
+  let actionMap = new Map();
+  actionMap.set(WELCOME_INTENT, welcomeIntent);
+  actionMap.set(NUMBER_INTENT, numberIntent);
+  assistant.handleRequest(actionMap);
 });
 // [END YourAction]
 
