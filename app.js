@@ -54,9 +54,11 @@ app.post('/', function (req, res) {
   }
 
   function numberIntent (assistant) {
-    // for (var i=0; i<3; i++) {
-      // var temp = assistant.getArgument(NUMBER_ARGUMENT);
-      // number[i] = atoi.getArgument(temp);
+    console.log('come in to numberIntent');
+    
+    for (var i=0; i<3; i++) {
+      var temp = assistant.getArgument(NUMBER_ARGUMENT);
+      number[i] = atoi.getArgument(temp);
 
     assistant.ask('You said' + number[0] + number[1] + number[2]);
 
