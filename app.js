@@ -22,8 +22,8 @@ let bodyParser = require('body-parser');
 let app = express();
 app.use(bodyParser.json({type: 'application/json'}));
 
-const WELCOME_INTENT = 'input.welcome';  // the action name from the API.AI intent
-const NUMBER_INTENT = 'input.number';  // the action name from the API.AI intent
+const WELCOME_INTENT = 'welcomeIntent';  // the action name from the API.AI intent
+const NUMBER_INTENT = 'numberIntent';  // the action name from the API.AI intent
 
 // [START YourAction]
 app.post('/', function (req, res) {
@@ -33,6 +33,19 @@ app.post('/', function (req, res) {
 
   let number = [0, 0, 0];
   let homerun = [4, 5, 6];
+  let atoi = new map();
+
+  atoi.set('zero', 0);
+  atoi.set('one', 1);
+  atoi.set('two', 2);
+  atoi.set('three', 3);
+  atoi.set('four', 4);
+  atoi.set('five', 5);
+  atoi.set('six', 6);
+  atoi.set('seven', 7);
+  atoi.set('eight', 8);
+  atoi.set('nine', 9);
+  
 
   // Fulfill action business logic
   function welcomeIntent (assistant) {
@@ -42,9 +55,38 @@ app.post('/', function (req, res) {
 
   function numberIntent (assistant) {
     for (var i=0; i<3; i++) {
-      number[i] = assistant.getArgument(NUMBER_ARGUMENT);
+      var temp = assistant.getArgument(NUMBER_ARGUMENT);
+      number[i] = atoi.getArgument(temp);
     }
-    
+
+    assistant.tell('You said' + number[0] + number[1] + number[2]);
+
+      var strike = 0;
+      var ball = 0;
+
+      for (var i = 0; i < 3; i++) {
+        if (number[i] == homerun[i]) strike++;
+      }
+
+      for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < 3; j++) {
+          if (number[i] == homerun[i]) {
+            ball++;
+            break;
+          }
+        }
+      }
+      
+      ball -= strike;
+
+       if (strike == 3) {
+         assistant.tell('Congratulations. Home Run.');
+       } else if (strike == 0 && ball == 0) {
+         assistant.tell('I\'m sorry, it\'s  out.');
+          } else {
+         assistant.tell('Not bad.' + strike + 'strike, ' + ball + 'ball');
+       }
+
   }
 
   let actionMap = new Map();
