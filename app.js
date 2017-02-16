@@ -30,7 +30,7 @@ var number = [0, 0, 0];
 
 app.post('/', function (request, response) {
   console.log('handle post');
-  const assistant = new ApiAiAssistant({request: request, response: response});
+  const assistant = new ActionsSdkAssistant({request: request, response: response});
   const NUMBER_ARGUMENT = 'number';
 
   function mainIntent (assistant) {

@@ -11,7 +11,7 @@
         "intent": "assistant.intent.action.MAIN"
       },
       "httpExecution": {
-        "url": "https://healthy-reason-158600.appspot.com/"
+        "url": "https://cryptic-earth-27875.herokuapp.com/"
       }
     }
   ]
