@@ -52,6 +52,7 @@ app.post('/', function (request, response) {
        //assistant.ask(inputPrompt);
      // for (var i = 0; i < 3; i++) {
         assistant.tell('here is for loop');
+        assistant.tell('can i tell you twice?');
         number[0] = assistant.getArgument(NUMBER_ARGUMENT);
       // }
 
