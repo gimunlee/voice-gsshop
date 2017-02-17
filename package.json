@@ -1,5 +1,5 @@
 {
-  "name": "hello-action",
+  "name": "gsshop",
   "description": "Actions SDK sample for Google App Engine",
   "version": "0.0.1",
   "private": true,
@@ -32,5 +32,14 @@
   },
   "devDependencies": {
     "semistandard": "^9.1.0"
-  }
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gimunlee/voice-gsshop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gimunlee/voice-gsshop/issues"
+  },
+  "homepage": "https://github.com/gimunlee/voice-gsshop#readme"
 }
