@@ -1,9 +1,9 @@
 {
-  "name": "gsshop",
-  "description": "Actions SDK sample for Google App Engine",
+  "name": "facts-about-google",
+  "description": "Fun way to learn more about Google!",
   "version": "0.0.1",
   "private": true,
-  "license": "Apache-2.0",
+  "license": "Apache Version 2.0",
   "author": "Google Inc.",
   "engines": {
     "node": "~4.2"
@@ -12,18 +12,7 @@
     "lint": "semistandard --fix \"**/*.js\"",
     "start": "node app.js",
     "monitor": "nodemon app.js",
-    "deploy": "gcloud app deploy",
-    "test": "npm run lint"
-  },
-  "semistandard": {
-    "globals": [
-      "after",
-      "afterEach",
-      "before",
-      "beforeEach",
-      "describe",
-      "it"
-    ]
+    "deploy": "gcloud app deploy"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -32,14 +21,5 @@
   },
   "devDependencies": {
     "semistandard": "^9.1.0"
-  },
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gimunlee/voice-gsshop.git"
-  },
-  "bugs": {
-    "url": "https://github.com/gimunlee/voice-gsshop/issues"
-  },
-  "homepage": "https://github.com/gimunlee/voice-gsshop#readme"
+  }
 }
