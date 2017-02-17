@@ -52,7 +52,6 @@ app.post('/', function (request, response) {
     if (assistant.getRawInput() === 'bye') {
       assistant.tell('Goodbye!');
     } else {
-       assistant.ask(inputPrompt);
        for (var i = 0; i < 3; i++) {
          assistant.ask(false, 'just testing for speaking twice');
          assistant.ask(false, 'here is loop' + (i+1));
