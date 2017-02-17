@@ -49,8 +49,7 @@ app.post('/', function (request, response) {
     if (assistant.getRawInput() === 'bye') {
       assistant.tell('Goodbye!');
     } else {
-      inputPrompt = assistant.buildInputPrompt(true, '<speak>Okay, you gave me a raw input.');
-      assistant.ask(inputPrompt);
+       //assistant.ask(inputPrompt);
      // for (var i = 0; i < 3; i++) {
         assistant.tell('here is for loop');
         number[0] = assistant.getArgument(NUMBER_ARGUMENT);
@@ -75,17 +74,16 @@ app.post('/', function (request, response) {
       }
       
       ball -= strike;
-
+ 
        if (strike == 3) {
-         assistant.tell('Congratulations. Home Run.');
+         inputPrompt = assistant.buildInputPrompt(true, 'Congratulations. Home Run.');
        } else if (strike == 0 && ball == 0) {
-         assistant.tell('I\'m sorry, it\'s  out.');
-         let inputPrompt  = assistant.buildInputPrompt(true, '<speak>Out.');
+         inputPrompt  = assistant.buildInputPrompt(true, '<speak>Out.');
        } else {
-         let inputPrompt  = assistant.buildInputPrompt(true, '<speak>' + strike + 'strike, ' + ball + 'ball.');
+         inputPrompt  = assistant.buildInputPrompt(true, '<speak>' + strike + 'strike, ' + ball + 'ball.');
        }
 
-      // assistant.ask(inputPrompt);
+       assistant.ask(inputPrompt);
       
       // let inputPrompt = assistant.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
       //   assistant.getRawInput() + '</say-as></speak>',
