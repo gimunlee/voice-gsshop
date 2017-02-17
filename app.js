@@ -25,6 +25,7 @@ app.use(bodyParser.json({type: 'application/json'}));
 const UNRECOGNIZED_DEEP_LINK = 'deeplink.unknown';
 const SAY_CAT_FACT = 'say_cat_fact';
 const SAY_GOOGLE_FACT = 'say_google_fact';
+const SAY_NUMBERS = 'say_numbers';
 
 // API.AI parameter names
 const CATEGORY_ARGUMENT = 'category';
@@ -189,10 +190,20 @@ app.post('/', function (req, res) {
     return response;
   }
 
+  function baseballGame (assistant) {
+    var number1 = parseInt(req.body.result.parameters.number1);
+    var number2 = parseInt(req.body.result.parameters.number2);
+    var number3 = parseInt(req.body.result.parameters.number3);
+
+    assistant.ask(false, 'okay. you said ' + number1 + number2 + number3);
+    return;
+  }
+
   let actionMap = new Map();
   actionMap.set(UNRECOGNIZED_DEEP_LINK, unhandledDeepLinks);
   actionMap.set(SAY_GOOGLE_FACT, tellGoogleFact);
   actionMap.set(SAY_CAT_FACT, tellCatFact);
+  actionMap.set(SAY_NUMBERS, baseballGame);
 
   assistant.handleRequest(actionMap);
 });
