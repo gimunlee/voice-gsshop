@@ -51,10 +51,10 @@ app.post('/', function (request, response) {
     } else {
       inputPrompt = assistant.buildInputPrompt(true, '<speak>Okay, you gave me a raw input.');
       assistant.ask(inputPrompt);
-      for (var i = 0; i < 3; i++) {
+     // for (var i = 0; i < 3; i++) {
         assistant.tell('here is for loop');
-        number[i] = assistant.getArgument(NUMBER_ARGUMENT);
-      }
+        number[0] = assistant.getArgument(NUMBER_ARGUMENT);
+      // }
 
       assistant.tell('You said' + number1 + number2 + number3);
 
