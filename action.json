@@ -10,6 +10,10 @@
       "initialTrigger": {
         "intent": "assistant.intent.action.MAIN"
       },
+      "inDialogTriggers": {
+        "intent": "assistant.intent.action.TEXT"
+        
+      },
       "httpExecution": {
         "url": "https://cryptic-earth-27875.herokuapp.com/"
       }

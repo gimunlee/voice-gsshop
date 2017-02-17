@@ -35,7 +35,7 @@ app.post('/', function (request, response) {
 
   function mainIntent (assistant) {
     console.log('mainIntent');
-    let inputPrompt = assistant.buildInputPrompt(true, '<speak>welcome to L.G. C.N.S.' );
+    let inputPrompt = assistant.buildInputPrompt(false, 'welcome to L.G. C.N.S.');
     // let inputPrompt = assistant.buildInputPrompt(true, '<speak>Hi! <break time="1"/> ' +
     //       'I can read out an ordinal like ' +
     //       '<say-as interpret-as="ordinal">123</say-as>. Say a number.</speak>',
@@ -45,19 +45,22 @@ app.post('/', function (request, response) {
 
   function rawInput (assistant) {
     var inputPrompt;
+    // var command = assistant.getRawInput();
+
     console.log('rawInput');
+    
     if (assistant.getRawInput() === 'bye') {
       assistant.tell('Goodbye!');
     } else {
-       //assistant.ask(inputPrompt);
-     // for (var i = 0; i < 3; i++) {
-        assistant.tell('can i speak you twice?');
-      
-        assistant.tell('here is for loop');
-        number[0] = assistant.getArgument(NUMBER_ARGUMENT);
-      // }
-
-      assistant.tell('You said' + number1 + number2 + number3);
+       assistant.ask(inputPrompt);
+       for (var i = 0; i < 3; i++) {
+         assistant.ask(false, 'just testing for speaking twice');
+         assistant.ask(false, 'here is loop' + (i+1));
+         number[0] = assistant.getArgument(NUMBER_ARGUMENT);
+         assistant.ask(false, 'speaking twice.')
+         number[0] = assistant.getArgument(NUMBER_ARGUMENT);
+      }
+      assistant.ask(false, 'You said' + number[0] + number[1] + number[2]);
 
       var strike = 0;
       var ball = 0;
