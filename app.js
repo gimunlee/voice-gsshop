@@ -52,7 +52,7 @@ app.post('/', function (request, response) {
       inputPrompt = assistant.buildInputPrompt(true, '<speak>Okay, you gave me a raw input.');
       assistant.ask(inputPrompt);
       for (var i = 0; i < 3; i++) {
-        assistant.ask('here is for loop');
+        assistant.tell('here is for loop');
         number[i] = assistant.getArgument(NUMBER_ARGUMENT);
       }
 
