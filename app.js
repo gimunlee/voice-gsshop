@@ -235,8 +235,8 @@ app.post('/', function (req, res) {
   
    const TEST_INTENT = 'test-action';
    function testHandler(assistant) {
-        // request.get({ "url":"http://" + process.env.GSShopServerHost + "/test","body":"{}"},
-        request.get({ "url":"http://www.naver.com","body":"{}"},
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/',"body":"{}"},
+        // request.get({ "url":"http://www.naver.com","body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var speech = "";
