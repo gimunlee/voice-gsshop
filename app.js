@@ -41,9 +41,12 @@ app.post('/', function (req, res) {
                 console.log(body);
                 
                 var prompt  = 'Here is the product on live.';
-                prompt += (JSON.parse(body)['name']);
-                prompt += (JSON.parse(body)['category']);
-                prompt += (JSON.parse(body)['price']);
+                prompt += 'name.';
+                prompt += (JSON.parse(body)['name']) + '.';
+                prompt += 'category.';
+                prompt += (JSON.parse(body)['category']) + '.';
+                prompt += 'price.';
+                prompt += (JSON.parse(body)['price']) + 'won.';
                 // prompt += (JSON.parse(body)['name']);
                 
                 // console.log(JSON.parse(body));
@@ -66,9 +69,12 @@ app.post('/', function (req, res) {
                 var prompt = "";
                 console.log(body);
 
-                // prompt += JSON.parse(body)['product']['name'];
-                prompt += JSON.parse(body)['transportation'];
-                prompt += JSON.parse(body)['currentLocation'];
+                prompt += 'name.';
+                prompt += (JSON.parse(body)['product']['name']) + '.';
+                prompt += 'transportation.';
+                prompt += (JSON.parse(body)['transportation']) + '.';
+                prompt += 'current location.';
+                prompt += (JSON.parse(body)['currentLocation']) + '.';
 
                 // console.log(JSON.parse(body)['message']);
                 // console.log({'message':'test'}.message);
@@ -88,11 +94,6 @@ app.post('/', function (req, res) {
                 console.log(JSON.stringify(response));
                 var speech = "";
                 console.log(body);
-                // console.log(JSON.parse(body));
-                // console.log(JSON.parse(body)['message']);
-                // console.log({'message':'test'}.message);
-                // speech += "You received " + JSON.parse(body)['message'];
-                // var prompt = ". Is there any thing you need more?";
                 
                 assistant.ask('came in to categories');
             });
