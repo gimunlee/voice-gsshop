@@ -86,6 +86,9 @@ function getRandomFact (facts) {
   return randomFact;
 }
 
+
+let request = require('request');
+
 // [START google_facts]
 app.post('/', function (req, res) {
   const assistant = new Assistant({request: req, response: res});
@@ -232,7 +235,8 @@ app.post('/', function (req, res) {
   
    const TEST_INTENT = 'test-action';
    function testHandler(assistant) {
-        request.get({ "url":"http://" + process.env.GSShopServerHost + "/test","body":"{}"},
+        // request.get({ "url":"http://" + process.env.GSShopServerHost + "/test","body":"{}"},
+        request.get({ "url":"http://naver.com","body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var speech = "";
