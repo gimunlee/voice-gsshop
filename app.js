@@ -235,19 +235,19 @@ app.post('/', function (req, res) {
   
    const TEST_INTENT = 'test-action';
    function testHandler(assistant) {
-        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/',"body":"{}"},
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/deliveries',"body":"{}"},
         // request.get({ "url":"http://www.naver.com","body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var speech = "";
                 console.log(body);
-                console.log(JSON.parse(body));
-                console.log(JSON.parse(body)['message']);
-                console.log({'message':'test'}.message);
-                speech += "You received " + JSON.parse(body)['message'];
-                var prompt = ". Is there any thing you need more?";
+                // console.log(JSON.parse(body));
+                // console.log(JSON.parse(body)['message']);
+                // console.log({'message':'test'}.message);
+                // speech += "You received " + JSON.parse(body)['message'];
+                // var prompt = ". Is there any thing you need more?";
                 
-                assistant.ask(speech + prompt);
+                assistant.ask('came in to deliveries');
             });
     }
 
