@@ -66,7 +66,7 @@ app.post('/', function (req, res) {
                 var prompt = "";
                 console.log(body);
 
-                prompt += JSON.parse(body)['product']['name'];
+                // prompt += JSON.parse(body)['product']['name'];
                 prompt += JSON.parse(body)['transportation'];
                 prompt += JSON.parse(body)['currentLocation'];
 
