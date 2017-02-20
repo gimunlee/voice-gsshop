@@ -196,8 +196,9 @@ app.post('/', function (req, res) {
     var number3 = parseInt(req.body.result.parameters.number3);
 
     assistant.ask(false, 'okay. you said ' + number1 + number2 + number3);
-    return;
   }
+
+  
 
   let actionMap = new Map();
   actionMap.set(UNRECOGNIZED_DEEP_LINK, unhandledDeepLinks);
