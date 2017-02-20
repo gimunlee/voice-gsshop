@@ -198,17 +198,17 @@ app.post('/', function (req, res) {
       parseInt(req.body.result.parameters.number3)];
 
     var homerun = [4, 5, 6];
-    
+
     var strike = 0;
     var ball = 0;
 
     for (var i = 0; i < 3; i++) {
-      if (number[i] == homerun[i]) strike++;
+      if (numbers[i] == homerun[i]) strike++;
     }
 
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < 3; j++) {
-        if (number[i] == homerun[i]) {
+        if (numbers[i] == homerun[i]) {
           ball++;
           break;
         }
@@ -217,7 +217,7 @@ app.post('/', function (req, res) {
       
     ball -= strike;
 
-    var inputPrompt = 'okay. you gave me three numbers' + number1 + 'and' +  number2 + 'and' +  number3 + '.';
+    var inputPrompt = 'okay. you gave me three numbers' + numbers[0] + 'and' +  numbers[1] + 'and' +  numbers[2] + '.';
 
     if (strike == 3) {
       inputPrompt += 'Congratulations. Home Run.';
