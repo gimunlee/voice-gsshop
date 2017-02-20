@@ -41,12 +41,12 @@ app.post('/', function (req, res) {
                 console.log(body);
                 
                 var prompt  = 'Here is the product on live.';
-                prompt += 'name.';
-                prompt += (JSON.parse(body)['name']) + '.';
-                prompt += 'category.';
-                prompt += (JSON.parse(body)['category']) + '.';
-                prompt += 'price.';
-                prompt += (JSON.parse(body)['price']) + 'won.';
+                prompt += 'name,';
+                prompt += (JSON.parse(body)['name']) + ',';
+                prompt += 'category,';
+                prompt += (JSON.parse(body)['category']) + ',';
+                prompt += 'price,';
+                prompt += (JSON.parse(body)['price']) + 'won,';
                 // prompt += (JSON.parse(body)['name']);
                 
                 // console.log(JSON.parse(body));
@@ -69,11 +69,11 @@ app.post('/', function (req, res) {
                 var prompt = "";
                 console.log(body);
 
-                prompt += 'name.';
-                prompt += (JSON.parse(body)['product']['name']) + '.';
-                prompt += 'transportation.';
-                prompt += (JSON.parse(body)['transportation']) + '.';
-                prompt += 'current location.';
+                prompt += 'name,';
+                prompt += (JSON.parse(body)['product']['name']) + ',';
+                prompt += 'transportation,';
+                prompt += (JSON.parse(body)['transportation']) + ',';
+                prompt += 'current location,';
                 prompt += (JSON.parse(body)['currentLocation']) + '.';
 
                 // console.log(JSON.parse(body)['message']);
