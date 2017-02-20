@@ -192,10 +192,13 @@ app.post('/', function (req, res) {
   const SAY_NUMBERS = 'say_numbers';
 
   function baseballGame (assistant) {
-    var number1 = parseInt(req.body.result.parameters.number1);
-    var number2 = parseInt(req.body.result.parameters.number2);
-    var number3 = parseInt(req.body.result.parameters.number3);
+    var numbers = [
+      parseInt(req.body.result.parameters.number1), 
+      parseInt(req.body.result.parameters.number2), 
+      parseInt(req.body.result.parameters.number3)];
 
+    var homerun = [4, 5, 6];
+    
     var strike = 0;
     var ball = 0;
 
