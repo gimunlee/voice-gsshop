@@ -227,7 +227,7 @@ app.post('/', function (req, res) {
       inputPrompt += 'Nice try.' + strike + 'strike.' + ball + 'ball.';
     }
     
-    assistant.tell(inputPrompt);
+    assistant.ask(false, inputPrompt);
   }
   
    const TEST_INTENT = 'test-action';
