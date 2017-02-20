@@ -34,19 +34,25 @@ app.post('/', function (req, res) {
   const SHOW_LIVE = 'live-action';
 
   function liveHandler(assistant) {
-        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/live',"body":"{}"},
-        // request.get({ "url":"http://www.naver.com","body":"{}"},
-            function(error,response,body) {
+    request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/live',"body":"{}"},
+    // request.get({ "url":"http://www.naver.com","body":"{}"},
+      function(error, response, body) {
                 console.log(JSON.stringify(response));
-                var speech = "";
                 console.log(body);
+                
+                var prompt  = 'Here is the product on live.';
+                prompt += (JSON.parse(body)['name']);
+                prompt += (JSON.parse(body)['category']);
+                prompt += (JSON.parse(body)['price']);
+                // prompt += (JSON.parse(body)['name']);
+                
                 // console.log(JSON.parse(body));
                 // console.log(JSON.parse(body)['message']);
                 // console.log({'message':'test'}.message);
                 // speech += "You received " + JSON.parse(body)['message'];
                 // var prompt = ". Is there any thing you need more?";
                 
-                assistant.ask('came in to live');
+                assistant.ask(prompt);
             });
    }
 
@@ -57,15 +63,19 @@ app.post('/', function (req, res) {
         // request.get({ "url":"http://www.naver.com","body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
-                var speech = "";
+                var prompt = "";
                 console.log(body);
-                // console.log(JSON.parse(body));
+
+                prompt += JSON.parse(body)['product']['name'];
+                prompt += JSON.parse(body)['transportation'];
+                prompt += JSON.parse(body)['currentLocation'];
+
                 // console.log(JSON.parse(body)['message']);
                 // console.log({'message':'test'}.message);
                 // speech += "You received " + JSON.parse(body)['message'];
                 // var prompt = ". Is there any thing you need more?";
                 
-                assistant.ask('came in to deliveries');
+                assistant.ask(prompt);
             });
     }
   
