@@ -34,19 +34,20 @@ app.post('/', function (req, res) {
   const SHOW_LIVE = 'live-action';
 
   function liveHandler(assistant) {
-    request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/live',"body":"{}"},
+    request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/live',"body":"{}"},
     // request.get({ "url":"http://www.naver.com","body":"{}"},
       function(error, response, body) {
                 console.log(JSON.stringify(response));
                 console.log(body);
                 
-                var prompt  = 'Here is the product on live.';
+                var prompt  = 'Here is the product on live,';
                 prompt += 'name,';
                 prompt += (JSON.parse(body)['name']) + ',';
                 prompt += 'category,';
                 prompt += (JSON.parse(body)['category']) + ',';
                 prompt += 'price,';
                 prompt += (JSON.parse(body)['price']) + 'won,';
+                prompt += 'do you want to purchase?'
                 // prompt += (JSON.parse(body)['name']);
                 
                 // console.log(JSON.parse(body));
@@ -62,19 +63,20 @@ app.post('/', function (req, res) {
    const SHOW_DELIVERIES = 'delivery-action';
 
    function deliveryHandler(assistant) {
-        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/deliveries',"body":"{}"},
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/deliveries',"body":"{}"},
         // request.get({ "url":"http://www.naver.com","body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
+                var delivery = JSON.parse(body);
                 var prompt = "";
                 console.log(body);
 
                 prompt += 'name,';
-                prompt += (JSON.parse(body)['product']['name']) + ',';
+                prompt += delivery.product.name + ',';
                 prompt += 'transportation,';
-                prompt += (JSON.parse(body)['transportation']) + ',';
+                prompt += delivery.transportation + ',';
                 prompt += 'current location,';
-                prompt += (JSON.parse(body)['currentLocation']) + '.';
+                prompt += delivery.currentLocation + ',';
 
                 // console.log(JSON.parse(body)['message']);
                 // console.log({'message':'test'}.message);
@@ -88,6 +90,20 @@ app.post('/', function (req, res) {
    const SHOW_CATEGORIES = 'category-action';
 
    function categoryHandler(assistant) {
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/categories',"body":"{}"},
+        // request.get({ "url":"http://www.naver.com","body":"{}"},
+            function(error,response,body) {
+                console.log(JSON.stringify(response));
+                var speech = "";
+                console.log(body);
+                
+                assistant.ask('came in to categories');
+            });
+    }
+
+   const PURCHASE = 'purchase-action';
+
+   function purchaseHandler(assistant) {
         request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/categories',"body":"{}"},
         // request.get({ "url":"http://www.naver.com","body":"{}"},
             function(error,response,body) {
@@ -105,6 +121,7 @@ app.post('/', function (req, res) {
   actionMap.set(SHOW_LIVE, liveHandler);
   actionMap.set(SHOW_DELIVERIES, deliveryHandler);
   actionMap.set(SHOW_CATEGORIES, categoryHandler);
+  actionMap.set(PURCHASE, purchaseHandler);
   
   assistant.handleRequest(actionMap);
 });
