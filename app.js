@@ -25,7 +25,6 @@ app.use(bodyParser.json({type: 'application/json'}));
 const UNRECOGNIZED_DEEP_LINK = 'deeplink.unknown';
 const SAY_CAT_FACT = 'say_cat_fact';
 const SAY_GOOGLE_FACT = 'say_google_fact';
-const SAY_NUMBERS = 'say_numbers';
 
 // API.AI parameter names
 const CATEGORY_ARGUMENT = 'category';
@@ -190,13 +189,60 @@ app.post('/', function (req, res) {
     return response;
   }
 
+  const SAY_NUMBERS = 'say_numbers';
+
   function baseballGame (assistant) {
     var number1 = parseInt(req.body.result.parameters.number1);
     var number2 = parseInt(req.body.result.parameters.number2);
     var number3 = parseInt(req.body.result.parameters.number3);
 
-    assistant.tell('okay. you gave me three numbers' + number1 + number2 + number3 + '.');
+    var strike = 0;
+    var ball = 0;
+
+    for (var i = 0; i < 3; i++) {
+      if (number[i] == homerun[i]) strike++;
+    }
+
+    for (var i = 0; i < 3; i++) {
+      for (var j = 0; j < 3; j++) {
+        if (number[i] == homerun[i]) {
+          ball++;
+          break;
+        }
+      }
+    }
+      
+    ball -= strike;
+
+    var inputPrompt = 'okay. you gave me three numbers' + number1 + 'and' +  number2 + 'and' +  number3 + '.';
+
+    if (strike == 3) {
+      inputPrompt += 'Congratulations. Home Run.';
+    } else if (strike == 0 && ball == 0) {
+      inputPrompt += 'I\'m sorry, it\'s  out.';
+    } else {
+      inputPrompt += 'Nice try.' + strike + 'strike.' + ball + 'ball.';
+    }
+    
+    assistant.tell(inputPrompt);
   }
+  
+   const TEST_INTENT = 'test-action';
+   function testHandler(assistant) {
+        request.get({ "url":"http://" + process.env.GSShopServerHost + "/test","body":"{}"},
+            function(error,response,body) {
+                console.log(JSON.stringify(response));
+                var speech = "";
+                console.log(body);
+                console.log(JSON.parse(body));
+                console.log(JSON.parse(body)['message']);
+                console.log({'message':'test'}.message);
+                speech += "You received " + JSON.parse(body)['message'];
+                var prompt = ". Is there any thing you need more?";
+                
+                assistant.ask(speech + prompt);
+            });
+    }
 
 
 
@@ -205,6 +251,7 @@ app.post('/', function (req, res) {
   actionMap.set(SAY_GOOGLE_FACT, tellGoogleFact);
   actionMap.set(SAY_CAT_FACT, tellCatFact);
   actionMap.set(SAY_NUMBERS, baseballGame);
+  actionMap.set(TEST_INTENT, testHandler);
 
   assistant.handleRequest(actionMap);
 });
