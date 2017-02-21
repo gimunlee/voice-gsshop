@@ -98,7 +98,7 @@ app.post('/', function (req, res) {
                 }
 
                 prompt += 'those ' + i + ' products are on our catalogue.';
-                assistant.ask(false, prompt);
+                assistant.ask(prompt);
             });
     }
 
@@ -127,7 +127,7 @@ app.post('/', function (req, res) {
                 }
 
                 prompt += 'thank you for buying our product.';
-                assistant.ask(false, prompt);
+                assistant.ask(prompt);
             });
   }
 
@@ -157,7 +157,7 @@ app.post('/', function (req, res) {
                 }
 
                 prompt += 'thank you for buying our product.';
-                assistant.ask(false, prompt);
+                assistant.ask(prompt);
             });
   }
 
