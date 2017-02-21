@@ -59,18 +59,19 @@ app.post('/', function (req, res) {
         request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/deliveries',"body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
-                var delivery = JSON.parse(body);
+                var deliveries = JSON.parse(body);
                 var prompt = "";
                 console.log(body);
 
-                prompt += 'name,';
-                prompt += delivery.product.name + ',';
-                prompt += 'transportation,';
-                prompt += delivery.transportation + ',';
-                prompt += 'current location,';
-                prompt += delivery.currentLocation + ',';
-                
-                assistant.ask(prompt);
+                for (var delivery of deliveries) {
+                     prompt += 'name,';
+                  prompt += delivery.product.name + ',';
+                  prompt += 'transportation,';
+                  prompt += delivery.transportation + ',';
+                  prompt += 'current location,';
+                  prompt += delivery.currentLocation + ',';
+              }
+              assistant.ask(prompt);
             });
     }
   
@@ -85,7 +86,7 @@ app.post('/', function (req, res) {
                 var i = 0;
                 console.log(body);
 
-                for  (var product in catalogue) {
+                for  (var product of catalogue) {
                     console.log('####' + i + product.name + '####');
                     i++;
                     prompt += 'name, ';
@@ -114,11 +115,11 @@ app.post('/', function (req, res) {
 
                 console.log('payment : ' + payment)
                 
-                for (var user in purchase) {
+                for (var user of purchase) {
                     prompt += 'name, ';
                     prompt += user.name + ',';
 
-                    for (var payment in user.billings) {
+                    for (var payment of user.billings) {
                          if (payment.type === 'mobile phone') {
                              prompt += 'phone number, ';
                              prompt += payment.phoneNUmber + ',';
@@ -146,11 +147,11 @@ app.post('/', function (req, res) {
 
                 console.log('payment : ' + payment)
                 
-                for (var user in purchase) {
+                for (var user of purchase) {
                     prompt += 'name, ';
                     prompt += user.name + ',';
 
-                    for (var payment in user.billings) {
+                    for (var payment of user.billings) {
                          if (payment.type !== 'mobile phone') {
                              prompt += 'card name, ';
                              prompt += payment.type + ',';
