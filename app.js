@@ -41,21 +41,14 @@ app.post('/', function (req, res) {
                 console.log(body);
                 
                 var prompt  = 'Here is the product on live,';
-                prompt += 'name,';
+                prompt += 'product name,';
                 prompt += (JSON.parse(body)['name']) + ',';
                 prompt += 'category,';
                 prompt += (JSON.parse(body)['category']) + ',';
                 prompt += 'price,';
                 prompt += (JSON.parse(body)['price']) + 'won,';
-                prompt += 'do you want to purchase?'
-                // prompt += (JSON.parse(body)['name']);
-                
-                // console.log(JSON.parse(body));
-                // console.log(JSON.parse(body)['message']);
-                // console.log({'message':'test'}.message);
-                // speech += "You received " + JSON.parse(body)['message'];
-                // var prompt = ". Is there any thing you need more?";
-                
+                prompt += 'do you want to purchase?';
+            
                 assistant.ask(prompt);
             });
    }
@@ -63,7 +56,7 @@ app.post('/', function (req, res) {
    const SHOW_DELIVERIES = 'delivery-action';
 
    function deliveryHandler(assistant) {
-        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/deliveries',"body":"{}"},
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/deliveries',"body":"{}"},
         // request.get({ "url":"http://www.naver.com","body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
@@ -77,51 +70,82 @@ app.post('/', function (req, res) {
                 prompt += delivery.transportation + ',';
                 prompt += 'current location,';
                 prompt += delivery.currentLocation + ',';
-
-                // console.log(JSON.parse(body)['message']);
-                // console.log({'message':'test'}.message);
-                // speech += "You received " + JSON.parse(body)['message'];
-                // var prompt = ". Is there any thing you need more?";
                 
                 assistant.ask(prompt);
             });
     }
   
-   const SHOW_CATEGORIES = 'category-action';
+   const SHOW_CATALOGUE = 'catalogue-action';
 
-   function categoryHandler(assistant) {
-        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/categories',"body":"{}"},
-        // request.get({ "url":"http://www.naver.com","body":"{}"},
+   function catalogueHandler(assistant) {
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/products',"body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
-                var speech = "";
+                var catalogue = JSON.parse(body);
+                var prompt= "";
                 console.log(body);
+
+                for  (var product in catalogue) {
+                    prompt += 'name, ';
+                    prompt += product.name + ',';
+                    prompt += 'category, ';
+                    prompt += product.category + ',';
+                    prompt += 'price, ';
+                    prompt += product.price + 'won, ';
+                }
                 
-                assistant.ask('came in to categories');
+                assistant.ask(false, prompt);
             });
     }
 
-   const PURCHASE = 'purchase-action';
+//    const PURCHASE = 'purchase-action';
 
-   function purchaseHandler(assistant) {
+//    function purchaseHandler(assistant) {
+//         request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/categories',"body":"{}"},
+//             function(error,response,body) {
+//                 console.log(JSON.stringify(response));
+//                 var speech = "";
+//                 console.log(body);
+                
+//                 assistant.ask('came in to purchase');
+//             });
+//   }
+
+  const PURCHASE_CREDITCARD = 'creditcard-action';
+
+   function creditcardHandler(assistant) {
         request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/categories',"body":"{}"},
-        // request.get({ "url":"http://www.naver.com","body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var speech = "";
                 console.log(body);
                 
-                assistant.ask('came in to categories');
+                assistant.ask('came in to credit card');
             });
-    }
+  }
+
+  const PURCHASE_PHONE = 'phone-action';
+
+   function phoneHandler(assistant) {
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/categories',"body":"{}"},
+            function(error,response,body) {
+                console.log(JSON.stringify(response));
+                var speech = "";
+                console.log(body);
+                
+                assistant.ask('came in to phone billing');
+            });
+  }
 
 
 
   let actionMap = new Map();
   actionMap.set(SHOW_LIVE, liveHandler);
   actionMap.set(SHOW_DELIVERIES, deliveryHandler);
-  actionMap.set(SHOW_CATEGORIES, categoryHandler);
-  actionMap.set(PURCHASE, purchaseHandler);
+  actionMap.set(SHOW_CATALOGUE, catalogueHandler);
+//   actionMap.set(PURCHASE, purchaseHandler);
+  actionMap.set(PURCHASE_CREDITCARD, creditcardHandler);
+  actionMap.set(PURCHASE_PHONE, phoneHandler);
   
   assistant.handleRequest(actionMap);
 });
