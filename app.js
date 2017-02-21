@@ -82,9 +82,12 @@ app.post('/', function (req, res) {
                 console.log(JSON.stringify(response));
                 var catalogue = JSON.parse(body);
                 var prompt= "";
+                var i = 0;
                 console.log(body);
 
                 for  (var product in catalogue) {
+                    console.log('####' + i + product.name + '####');
+                    i++;
                     prompt += 'name, ';
                     prompt += product.name + ',';
                     prompt += 'category, ';
@@ -92,7 +95,8 @@ app.post('/', function (req, res) {
                     prompt += 'price, ';
                     prompt += product.price + 'won, ';
                 }
-                
+
+                prompt += 'those ' + i + ' products are on our catalogue.';
                 assistant.ask(false, prompt);
             });
     }
