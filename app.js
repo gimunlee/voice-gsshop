@@ -112,6 +112,8 @@ app.post('/', function (req, res) {
 //             });
 //   }
 
+    const DUMMY = '';
+
   const PURCHASE_CREDITCARD = 'creditcard-action';
 
    function creditcardHandler(assistant) {
