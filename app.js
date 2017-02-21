@@ -38,15 +38,16 @@ app.post('/', function (req, res) {
     // request.get({ "url":"http://www.naver.com","body":"{}"},
       function(error, response, body) {
                 console.log(JSON.stringify(response));
+                var live = JSON.parse(body);
                 console.log(body);
                 
                 var prompt  = 'Here is the product on live,';
                 prompt += 'product name,';
-                prompt += (JSON.parse(body)['name']) + ',';
+                prompt += live.name + ',';
                 prompt += 'category,';
-                prompt += (JSON.parse(body)['category']) + ',';
+                prompt += live.category + ',';
                 prompt += 'price,';
-                prompt += (JSON.parse(body)['price']) + 'won,';
+                prompt += live.price + 'won,';
                 prompt += 'do you want to purchase?';
             
                 assistant.ask(prompt);
