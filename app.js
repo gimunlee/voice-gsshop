@@ -143,7 +143,7 @@ app.post('/', function (req, res) {
   actionMap.set(SHOW_LIVE, liveHandler);
   actionMap.set(SHOW_DELIVERIES, deliveryHandler);
   actionMap.set(SHOW_CATALOGUE, catalogueHandler);
-  actionMap.set(PURCHASE, purchaseHandler);
+  // actionMap.set(PURCHASE, purchaseHandler);
   actionMap.set(PURCHASE_CREDITCARD, creditcardHandler);
   actionMap.set(PURCHASE_PHONE, phoneHandler);
   
