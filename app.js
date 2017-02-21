@@ -96,20 +96,7 @@ app.post('/', function (req, res) {
                 assistant.ask(false, prompt);
             });
     }
-
-//    const CHOOSE_PURCHASE = 'purchase-action';
-
-//    function purchaseHandler(assistant) {
-//         request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/users',"body":"{}"},
-//             function(error,response,body) {
-//                 console.log(JSON.stringify(response));
-//                 var speech = "";
-//                 console.log(body);
-                
-//                 assistant.ask('came in to credit card handler');
-//             });
-//   }
-
+    
   const PURCHASE_PAYMENT = 'payment-action';
 
    function paymentHandler(assistant) {

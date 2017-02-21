@@ -2,7 +2,7 @@
   "name": "voice-shop",
   "description": "Voice shop testing",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "license": "Apache Version 2.0",
   "author": "Google Inc.",
   "engines": {
