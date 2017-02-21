@@ -64,7 +64,7 @@ app.post('/', function (req, res) {
                 console.log(body);
 
                 for (var delivery of deliveries) {
-                     prompt += 'name,';
+                  prompt += 'name,';
                   prompt += delivery.product.name + ',';
                   prompt += 'transportation,';
                   prompt += delivery.transportation + ',';
@@ -82,7 +82,7 @@ app.post('/', function (req, res) {
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var catalogue = JSON.parse(body);
-                var prompt= "";
+                var prompt= "These are all products on our catalogue,";
                 var i = 0;
                 console.log(body);
 
@@ -112,8 +112,6 @@ app.post('/', function (req, res) {
                 
                 var prompt= "Checking your profile,";
                 console.log(body);
-
-                console.log('payment : ' + payment)
                 
                 for (var user of purchase) {
                     prompt += 'name, ';
@@ -144,8 +142,6 @@ app.post('/', function (req, res) {
                 var prompt= "Checking your profile,";
 
                 console.log(body);
-
-                console.log('payment : ' + payment)
                 
                 for (var user of purchase) {
                     prompt += 'name, ';
