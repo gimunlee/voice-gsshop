@@ -96,11 +96,11 @@ app.post('/', function (req, res) {
                 assistant.ask(false, prompt);
             });
     }
-    
-  const PURCHASE_PAYMENT = 'payment-action';
 
-   function paymentHandler(assistant) {
-        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/users',"body":"{}"},
+   const PURCHASE_PHONE = 'phone-action';
+
+   function phoneHandler(assistant) {
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/users',"body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var purchase = JSON.parse(body);
@@ -108,27 +108,48 @@ app.post('/', function (req, res) {
                 var prompt= "Checking your profile,";
                 console.log(body);
 
-                var billing = req.body.result.parameters.billing-category;
                 console.log('payment : ' + payment)
                 
                 for (var user in purchase) {
                     prompt += 'name, ';
                     prompt += user.name + ',';
 
-                    if (billing === 'creditcard') {
-                        for (var payment in user.billings) {
-                            if (payment.type !== 'mobile phone') {
-                                prompt += 'card name, ';
-                                prompt += payment.type + ',';
-                            }
+                    for (var payment in user.billings) {
+                         if (payment.type === 'mobile phone') {
+                             prompt += 'phone number, ';
+                             prompt += payment.phoneNUmber + ',';
                         }
                     }
-                    else if (billing === 'phone') {
-                        for (var payment in user.billings){
-                            if (payment.type === 'mobile phone') {
-                                prompt += 'phone number, ';
-                                prompt += payment.phoneNUmber + ',';
-                            }
+                    break;
+                }
+
+                prompt += 'thank you for buying our product.';
+                assistant.ask(false, prompt);
+            });
+  }
+
+  const PURCHASE_CREDITCARD = 'creditcard-action';
+
+   function creditcardHandler(assistant) {
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/users',"body":"{}"},
+            function(error,response,body) {
+                console.log(JSON.stringify(response));
+                var purchase = JSON.parse(body);
+                
+                var prompt= "Checking your profile,";
+
+                console.log(body);
+
+                console.log('payment : ' + payment)
+                
+                for (var user in purchase) {
+                    prompt += 'name, ';
+                    prompt += user.name + ',';
+
+                    for (var payment in user.billings) {
+                         if (payment.type !== 'mobile phone') {
+                             prompt += 'card name, ';
+                             prompt += payment.type + ',';
                         }
                     }
                     break;
@@ -140,13 +161,12 @@ app.post('/', function (req, res) {
   }
 
 
-
   let actionMap = new Map();
   actionMap.set(SHOW_LIVE, liveHandler);
   actionMap.set(SHOW_DELIVERIES, deliveryHandler);
   actionMap.set(SHOW_CATALOGUE, catalogueHandler);
-//   actionMap.set(CHOOSE_PURCHASE, purchaseHandler);
-  actionMap.set(PURCHASE_PAYMENT, paymentHandler);
+  actionMap.set(PURCHASE_PHONE, phoneHandler);
+  actionMap.set(PURCHASE_CREDITCARD, creditcardHandler);
   
   assistant.handleRequest(actionMap);
 });
