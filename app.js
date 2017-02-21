@@ -34,8 +34,7 @@ app.post('/', function (req, res) {
   const SHOW_LIVE = 'live-action';
 
   function liveHandler(assistant) {
-    request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/live',"body":"{}"},
-    // request.get({ "url":"http://www.naver.com","body":"{}"},
+    request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/live',"body":"{}"},
       function(error, response, body) {
                 console.log(JSON.stringify(response));
                 var live = JSON.parse(body);
@@ -58,7 +57,6 @@ app.post('/', function (req, res) {
 
    function deliveryHandler(assistant) {
         request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/deliveries',"body":"{}"},
-        // request.get({ "url":"http://www.naver.com","body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var delivery = JSON.parse(body);
@@ -99,44 +97,58 @@ app.post('/', function (req, res) {
             });
     }
 
-//    const PURCHASE = 'purchase-action';
+//    const CHOOSE_PURCHASE = 'purchase-action';
 
 //    function purchaseHandler(assistant) {
-//         request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/categories',"body":"{}"},
+//         request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/users',"body":"{}"},
 //             function(error,response,body) {
 //                 console.log(JSON.stringify(response));
 //                 var speech = "";
 //                 console.log(body);
                 
-//                 assistant.ask('came in to purchase');
+//                 assistant.ask('came in to credit card handler');
 //             });
 //   }
 
-    const DUMMY = '';
+  const PURCHASE_PAYMENT = 'payment-action';
 
-  const PURCHASE_CREDITCARD = 'creditcard-action';
-
-   function creditcardHandler(assistant) {
-        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/categories',"body":"{}"},
+   function paymentHandler(assistant) {
+        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/test/users',"body":"{}"},
             function(error,response,body) {
                 console.log(JSON.stringify(response));
-                var speech = "";
-                console.log(body);
+                var purchase = JSON.parse(body);
                 
-                assistant.ask('came in to credit card handler');
-            });
-  }
-
-  const PURCHASE_PHONE = 'phone-action';
-
-   function phoneHandler(assistant) {
-        request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/categories',"body":"{}"},
-            function(error,response,body) {
-                console.log(JSON.stringify(response));
-                var speech = "";
+                var prompt= "Checking your profile,";
                 console.log(body);
+
+                var billing = req.body.result.parameters.billing-category;
+                console.log('payment : ' + payment)
                 
-                assistant.ask('came in to phone billing handler');
+                for (var user in purchase) {
+                    prompt += 'name, ';
+                    prompt += user.name + ',';
+
+                    if (billing === 'creditcard') {
+                        for (var payment in user.billings) {
+                            if (payment.type !== 'mobile phone') {
+                                prompt += 'card name, ';
+                                prompt += payment.type + ',';
+                            }
+                        }
+                    }
+                    else if (billing === 'phone') {
+                        for (var payment in user.billings){
+                            if (payment.type === 'mobile phone') {
+                                prompt += 'phone number, ';
+                                prompt += payment.phoneNUmber + ',';
+                            }
+                        }
+                    }
+                    break;
+                }
+
+                prompt += 'thank you for buying our product.';
+                assistant.ask(false, prompt);
             });
   }
 
@@ -146,9 +158,8 @@ app.post('/', function (req, res) {
   actionMap.set(SHOW_LIVE, liveHandler);
   actionMap.set(SHOW_DELIVERIES, deliveryHandler);
   actionMap.set(SHOW_CATALOGUE, catalogueHandler);
-  // actionMap.set(PURCHASE, purchaseHandler);
-  actionMap.set(PURCHASE_CREDITCARD, creditcardHandler);
-  actionMap.set(PURCHASE_PHONE, phoneHandler);
+//   actionMap.set(CHOOSE_PURCHASE, purchaseHandler);
+  actionMap.set(PURCHASE_PAYMENT, paymentHandler);
   
   assistant.handleRequest(actionMap);
 });
