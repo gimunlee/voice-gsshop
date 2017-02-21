@@ -120,7 +120,7 @@ app.post('/', function (req, res) {
                 var speech = "";
                 console.log(body);
                 
-                assistant.ask('came in to credit card');
+                assistant.ask('came in to credit card handler');
             });
   }
 
@@ -133,7 +133,7 @@ app.post('/', function (req, res) {
                 var speech = "";
                 console.log(body);
                 
-                assistant.ask('came in to phone billing');
+                assistant.ask('came in to phone billing handler');
             });
   }
 
@@ -143,7 +143,7 @@ app.post('/', function (req, res) {
   actionMap.set(SHOW_LIVE, liveHandler);
   actionMap.set(SHOW_DELIVERIES, deliveryHandler);
   actionMap.set(SHOW_CATALOGUE, catalogueHandler);
-//   actionMap.set(PURCHASE, purchaseHandler);
+  actionMap.set(PURCHASE, purchaseHandler);
   actionMap.set(PURCHASE_CREDITCARD, creditcardHandler);
   actionMap.set(PURCHASE_PHONE, phoneHandler);
   
