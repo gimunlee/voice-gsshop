@@ -118,9 +118,9 @@ app.post('/', function (req, res) {
                     prompt += user.name + ',';
 
                     for (var payment of user.billings) {
-                         if (payment.type === 'mobile phone') {
+                         if (payment.type === 'mobile') {
                              prompt += 'phone number, ';
-                             prompt += payment.phoneNUmber + ',';
+                             prompt += payment.detail.phoneNumber + ',';
                         }
                     }
                     break;
@@ -148,9 +148,9 @@ app.post('/', function (req, res) {
                     prompt += user.name + ',';
 
                     for (var payment of user.billings) {
-                         if (payment.type !== 'mobile phone') {
+                         if (payment.type === 'card') {
                              prompt += 'card name, ';
-                             prompt += payment.type + ',';
+                             prompt += payment.name + ',';
                         }
                     }
                     break;
