@@ -57,12 +57,15 @@ app.post('/', function (req, res) {
                 var deliveries = JSON.parse(body);
                 console.log(body);
 
-                var prompt = "Checking your deliveries. ";
+                var prompt = 'Checking your deliveries. Your product ';
                 for (var delivery of deliveries) {
-                  prompt += delivery.product.name + ' is on delivery by ';
-                  prompt += delivery.transportation + ' to ';
-                  prompt += delivery.to + ' and the current location is ';
-                  prompt += delivery.currentLocation + ', ';
+                    for (var product of deliveries.product) {
+                        prompt += product.name + ',';
+                    }
+                    prompt += ' is on delivery by ';
+                    prompt += delivery.transportation + ' to ';
+                    prompt += delivery.to + ' and the current location is ';
+                    prompt += delivery.currentLocation + ', ';
               }
               assistant.ask(prompt);
             });
@@ -153,13 +156,13 @@ app.post('/', function (req, res) {
   function quitHandler(assistant) {
     request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/users',"body":"{}"},
             function(error,response,body) {
-                var purchase = JSON.parse(body);
+                var users = JSON.parse(body);
                 
                 var prompt = 'Have a nice day, ';
 
                 console.log(body);
                 
-                for (var user of purchase) {
+                for (var user of users) {
                     prompt += user.name + '. Bye.';
                     break;
                 }
