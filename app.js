@@ -40,7 +40,7 @@ app.post('/', function (req, res) {
                 console.log(body);
                 
                 var prompt = 'There is ';
-                prompt += live.name + ' on';
+                prompt += live.name + ' which is ';
                 prompt += live.price + 'won on T.V.. ';
                 prompt += 'Do you want to get it?';
             
@@ -148,6 +148,26 @@ app.post('/', function (req, res) {
             });
   }
 
+  const QUIT = 'quit';
+
+  function quitHandler(assistant) {
+    request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/users',"body":"{}"},
+            function(error,response,body) {
+                var purchase = JSON.parse(body);
+                
+                var prompt = "Have a nice day, ";
+
+                console.log(body);
+                
+                for (var user of purchase) {
+                    prompt += user.name + '. Bye.';
+                    break;
+                }
+
+                assistant.tell(prompt);
+            });
+   }
+
 
   let actionMap = new Map();
   actionMap.set(SHOW_LIVE, liveHandler);
@@ -155,6 +175,7 @@ app.post('/', function (req, res) {
   actionMap.set(SHOW_CATALOGUE, catalogueHandler);
   actionMap.set(PURCHASE_PHONE, phoneHandler);
   actionMap.set(PURCHASE_CREDITCARD, creditcardHandler);
+  actionMap.set(QUIT, quitHandler);
   
   assistant.handleRequest(actionMap);
 });
