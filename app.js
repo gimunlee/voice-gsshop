@@ -41,7 +41,7 @@ app.post('/', function (req, res) {
                 
                 var prompt = 'There is ';
                 prompt += live.name + ' which is ';
-                prompt += live.price + 'won on T.V.. ';
+                prompt += live.price + 'dollars on T.V.. ';
                 prompt += 'Do you want to get it?';
             
                 assistant.ask(prompt);
@@ -86,7 +86,7 @@ app.post('/', function (req, res) {
                     i++;
                     prompt += 'Number ' + i + '. ';
                     prompt += product.name + ' is on ';
-                    prompt += product.price + ' won. ';
+                    prompt += product.price + ' dollars. ';
                 }
 
                 prompt += 'those ' + i + ' products are on our catalogue.';
@@ -106,6 +106,9 @@ app.post('/', function (req, res) {
                 console.log(body);
                 
                 for (var user of purchase) {
+                    if (user.voiceShopId !== 'JONGSEO') {
+                        continue;
+                    }
                     prompt += user.name + '. ';
 
                     for (var payment of user.billings) {
@@ -114,7 +117,6 @@ app.post('/', function (req, res) {
                              prompt += payment.detail.phoneNumber + '. ';
                         }
                     }
-                    break;
                 }
 
                 prompt += 'Thank you for buying our product.';
@@ -135,6 +137,9 @@ app.post('/', function (req, res) {
                 console.log(body);
                 
                 for (var user of purchase) {
+                    if (user.voiceShopId !== 'JONGSEO') {
+                        continue;
+                    }
                     prompt += user.name + '. ';
 
                     for (var payment of user.billings) {
@@ -164,6 +169,9 @@ app.post('/', function (req, res) {
                 console.log('enter to quit handler');
                 
                 for (var user of users) {
+                    if (user.voiceShopId !== 'JONGSEO') {
+                        continue;
+                    }
                     prompt += user.name + '. Bye.';
                     break;
                 }
@@ -171,7 +179,6 @@ app.post('/', function (req, res) {
                 assistant.tell(prompt);
             });
    }
-
 
   let actionMap = new Map();
   actionMap.set(SHOW_LIVE, liveHandler);
