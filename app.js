@@ -60,7 +60,8 @@ app.post('/', function (req, res) {
                 var prompt = "Checking your deliveries. ";
                 for (var delivery of deliveries) {
                   prompt += delivery.product.name + ' is on delivery by ';
-                  prompt += delivery.transportation + ' and the current location is ';
+                  prompt += delivery.transportation + ' to ';
+                  prompt += delivery.to + ' and the current location is ';
                   prompt += delivery.currentLocation + ', ';
               }
               assistant.ask(prompt);
@@ -76,14 +77,13 @@ app.post('/', function (req, res) {
                 var catalogue = JSON.parse(body);
                 console.log(body);
 
-                var prompt= "Checking the catalogue.  ";
+                var prompt = "Checking the catalogue. ";
                 var i = 0;
                 for  (var product of catalogue) {
                     i++;
-                    prompt += 'name, ';
-                    prompt += product.name + ',';
-                    prompt += 'price, ';
-                    prompt += product.price + 'won, ';
+                    prompt += 'Number ' + i + '. ';
+                    prompt += product.name + ' is on ';
+                    prompt += product.price + ' won. ';
                 }
 
                 prompt += 'those ' + i + ' products are on our catalogue.';
