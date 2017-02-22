@@ -161,6 +161,7 @@ app.post('/', function (req, res) {
                 var prompt = 'Have a nice day, ';
 
                 console.log(body);
+                console.log('enter to quit handler');
                 
                 for (var user of users) {
                     prompt += user.name + '. Bye.';
