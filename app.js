@@ -24,7 +24,6 @@ app.use(bodyParser.json({type: 'application/json'}));
 
 const UNRECOGNIZED_DEEP_LINK = 'deeplink.unknown';
 
-
 // [START voice-shop]
 app.post('/', function (req, res) {
   const assistant = new Assistant({request: req, response: res});
@@ -40,14 +39,10 @@ app.post('/', function (req, res) {
                 var live = JSON.parse(body);
                 console.log(body);
                 
-                var prompt  = 'Here is the product on live,';
-                prompt += 'product name,';
-                prompt += live.name + ',';
-                prompt += 'category,';
-                prompt += live.category + ',';
-                prompt += 'price,';
-                prompt += live.price + 'won,';
-                prompt += 'do you want to purchase?';
+                var prompt = 'There is ';
+                prompt += live.name + ' on';
+                prompt += live.price + 'won on T.V.. ';
+                prompt += 'Do you want to get it?';
             
                 assistant.ask(prompt);
             });
@@ -60,16 +55,13 @@ app.post('/', function (req, res) {
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var deliveries = JSON.parse(body);
-                var prompt = "";
                 console.log(body);
 
+                var prompt = "Checking your deliveries. ";
                 for (var delivery of deliveries) {
-                  prompt += 'name,';
-                  prompt += delivery.product.name + ',';
-                  prompt += 'transportation,';
-                  prompt += delivery.transportation + ',';
-                  prompt += 'current location,';
-                  prompt += delivery.currentLocation + ',';
+                  prompt += delivery.product.name + ' is on delivery by ';
+                  prompt += delivery.transportation + ' and the current location is ';
+                  prompt += delivery.currentLocation + ', ';
               }
               assistant.ask(prompt);
             });
@@ -82,17 +74,14 @@ app.post('/', function (req, res) {
             function(error,response,body) {
                 console.log(JSON.stringify(response));
                 var catalogue = JSON.parse(body);
-                var prompt= "These are all products on our catalogue,";
-                var i = 0;
                 console.log(body);
 
+                var prompt= "Checking the catalogue.  ";
+                var i = 0;
                 for  (var product of catalogue) {
-                    console.log('####' + i + product.name + '####');
                     i++;
                     prompt += 'name, ';
                     prompt += product.name + ',';
-                    prompt += 'category, ';
-                    prompt += product.category + ',';
                     prompt += 'price, ';
                     prompt += product.price + 'won, ';
                 }
@@ -110,23 +99,22 @@ app.post('/', function (req, res) {
                 console.log(JSON.stringify(response));
                 var purchase = JSON.parse(body);
                 
-                var prompt= "Checking your profile,";
+                var prompt = "Checking your profile, ";
                 console.log(body);
                 
                 for (var user of purchase) {
-                    prompt += 'name, ';
-                    prompt += user.name + ',';
+                    prompt += user.name + '. ';
 
                     for (var payment of user.billings) {
                          if (payment.type === 'mobile') {
-                             prompt += 'phone number, ';
-                             prompt += payment.detail.phoneNumber + ',';
+                             prompt += 'purchasing with your cell phone, ';
+                             prompt += payment.detail.phoneNumber + '. ';
                         }
                     }
                     break;
                 }
 
-                prompt += 'thank you for buying our product.';
+                prompt += 'Thank you for buying our product.';
                 assistant.ask(prompt);
             });
   }
@@ -139,24 +127,23 @@ app.post('/', function (req, res) {
                 console.log(JSON.stringify(response));
                 var purchase = JSON.parse(body);
                 
-                var prompt= "Checking your profile,";
+                var prompt= "Checking your profile, ";
 
                 console.log(body);
                 
                 for (var user of purchase) {
-                    prompt += 'name, ';
-                    prompt += user.name + ',';
+                    prompt += user.name + '. ';
 
                     for (var payment of user.billings) {
                          if (payment.type === 'card') {
-                             prompt += 'card name, ';
-                             prompt += payment.name + ',';
+                             prompt += 'Purchasing with your credit card, ';
+                             prompt += payment.name + '. ';
                         }
                     }
                     break;
                 }
 
-                prompt += 'thank you for buying our product.';
+                prompt += 'Thank you for buying our product.';
                 assistant.ask(prompt);
             });
   }
