@@ -167,7 +167,7 @@ app.post('/', function (req, res) {
                     break;
                 }
 
-                assistant.tell(prompt);
+                assistant.ask(prompt);
             });
    }
 
