@@ -148,14 +148,14 @@ app.post('/', function (req, res) {
             });
   }
 
-  const QUIT = 'quit';
+  const QUIT = 'quit-action';
 
   function quitHandler(assistant) {
     request.get({ "url":"http://" + 'ec2-54-196-242-126.compute-1.amazonaws.com:8080/users',"body":"{}"},
             function(error,response,body) {
                 var purchase = JSON.parse(body);
                 
-                var prompt = "Have a nice day, ";
+                var prompt = 'Have a nice day, ';
 
                 console.log(body);
                 
