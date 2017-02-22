@@ -59,7 +59,7 @@ app.post('/', function (req, res) {
 
                 var prompt = 'Checking your deliveries. Your product ';
                 for (var delivery of deliveries) {
-                    for (var product of deliveries.product) {
+                    for (var product of delivery.product) {
                         prompt += product.name + ',';
                     }
                     prompt += ' is on delivery by ';
