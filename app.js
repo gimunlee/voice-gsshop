@@ -80,16 +80,19 @@ app.post('/', function (req, res) {
                 var catalogue = JSON.parse(body);
                 console.log(body);
 
-                var prompt = "Checking the catalogue. ";
+                var prompt = "Checking the catalogue. I will show you topmost 3 products. ";
                 var i = 0;
                 for  (var product of catalogue) {
                     i++;
+                    if (i > 3) {
+                        continue;
+                    }
                     prompt += 'Number ' + i + '. ';
                     prompt += product.name + ' is on ';
                     prompt += product.price + ' dollars. ';
                 }
 
-                prompt += 'those ' + i + ' products are on our catalogue.';
+                prompt += 'total ' + i + ' products are on our catalogue.';
                 assistant.ask(prompt);
             });
     }
