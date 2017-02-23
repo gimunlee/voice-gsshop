@@ -191,7 +191,7 @@ app.post('/', function (req, res) {
   assistant.handleRequest(actionMap);
 });
 
-if (module === require.main) {
+if (module === require.main) { 
   // [START server]
   // Start the server
   let server = app.listen(process.env.PORT || 8080, function () {
